@@ -1,4 +1,3 @@
-
 Ticks = {
     classname = "ChlewTicks",
 }
@@ -11,7 +10,7 @@ Ticks = {
 --   {s} - seconds
 -- Examples:
 --   '{d}days {hh}:{ii}:{ss}'
-function Ticks.format (ticks, format)
+function Ticks.format(ticks, format)
     format = format == nil and '{d}days {h}:{ii}:{ss}' or format
     local seconds = math.floor(ticks / 60)
     local minutes = math.floor(seconds / 60)
@@ -35,7 +34,7 @@ function Ticks.format (ticks, format)
     return format
 end
 
-function Ticks.smartFormat (ticks)
+function Ticks.smartFormat(ticks)
     local seconds = math.floor(ticks / 60)
     local minutes = math.floor(seconds / 60)
     local hours = math.floor(minutes / 60)
@@ -52,6 +51,6 @@ function Ticks.smartFormat (ticks)
     if minutes > 0 then
         return Ticks.format(ticks, '{II}:{ss}')
     end
-    
+
     return Ticks.format(ticks, '{s}')
 end

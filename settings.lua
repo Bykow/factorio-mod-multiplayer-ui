@@ -1,4 +1,4 @@
-data:extend{
+data:extend {
   -- PLAYER SETTINGS
   {
     type = "bool-setting",
@@ -48,5 +48,12 @@ data:extend{
     setting_type = "runtime-per-user",
     default_value = 5,
     order = "ga"
+  },
+  {
+    type = "bool-setting",
+    name = "chlew-ui-debug-log",
+    setting_type = "startup",
+    default_value = false,
+    order = "ha"
   }
 }

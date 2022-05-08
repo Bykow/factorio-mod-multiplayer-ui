@@ -1,6 +1,6 @@
 Events = {
-    classname = "ChlewEvents",
-    playerList = nil,
+  classname = "ChlewEvents",
+  playerList = nil,
 }
 
 function Events.on_configuration_changed(event)
@@ -8,28 +8,28 @@ function Events.on_configuration_changed(event)
 end
 
 function Events.debug()
-    CustomEvents.debug()
-  end
+  CustomEvents.debug()
+end
 
 function Events.on_player_created(event)
-    for _, player in pairs(game.players) do
-      local playerList = PlayersList:new(player)
-      playerList:render()
-    end
+  for _, player in pairs(game.players) do
+    local playerList = PlayersList:new(player)
+    playerList:render()
+  end
 end
 
 function Events.on_tick(event)
-    if event.tick % 60 == 0 then
-        Debug:debug('[Events] OnTick', event)
-        for _, player in pairs(game.players) do
-          local playerList = PlayersList:new(player)
-          if player.connected then
-            playerList:render()
-          else
-            playerList:reset()
-          end
-        end
+  if event.tick % 60 == 0 then
+    Debug:debug('[Events] OnTick', event)
+    for _, player in pairs(game.players) do
+      local playerList = PlayersList:new(player)
+      if player.connected then
+        playerList:render()
+      else
+        playerList:reset()
+      end
     end
+  end
 end
 
 function Events:init()

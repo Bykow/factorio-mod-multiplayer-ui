@@ -1,45 +1,45 @@
 Debug = {}
 
-Debug.filename="chlew-ui/chlew-ui.log"
+Debug.filename = "chlew-ui/chlew-ui.log"
 Debug.limit = 5
 Debug.append = false
-Debug.mode = true
+Debug.mode = settings.startup["chlew-ui-debug-log"].value
 
 if Debug.mode then
   Debug.print_tb = {
-  --         chat   log    file  
-    info =  {true,  true,  true},
-    error = {true,  true,  true},
-    debug = {false, true,  true},
+    --         chat   log    file
+    info = { true, true, true },
+    error = { true, true, true },
+    debug = { false, true, true },
   }
 else
   Debug.print_tb = {
-  --         chat   log    file
-    info =  {true, false, false},
-    error = {true, true,  true },
-    debug = {false, false, false},
+    --         chat   log    file
+    info = { true, false, false },
+    error = { true, true, true },
+    debug = { false, false, false },
   }
 end
 
 function Debug:info(...)
-  local arg = {...}
+  local arg = { ... }
   self:print("info", self:get_message("[INFO]", unpack(arg)))
 end
 
 function Debug:debug(...)
-  local arg = {...}
+  local arg = { ... }
   self:print("debug", self:get_message("[DEBUG]", unpack(arg)))
 end
 
 function Debug:error(...)
-  local arg = {...}
+  local arg = { ... }
   self:print("error", self:get_message("[ERROR]", unpack(arg)))
 end
 
 function Debug:object_to_string(level, object)
   local function get_tabs(num)
     local msg = ""
-    for i = 0, num do  msg = msg .. "  " end
+    for i = 0, num do msg = msg .. "  " end
     return msg
   end
 
@@ -50,11 +50,14 @@ function Debug:object_to_string(level, object)
   if object == nil then
     message = message .. "nil"
   elseif type(object) == "boolean" or type(object) == "number" then
-    message = message .. tostring(object) end
+    message = message .. tostring(object)
+  end
   if type(object) == "string" then
-    message = message..object end
+    message = message .. object
+  end
   if type(object) == "function" then
-    message = message.."\"__function\"" end
+    message = message .. "\"__function\""
+  end
   if type(object) == "table" then
     if level <= self.limit then
       message = message .. "\n" .. get_tabs(level) .. "{\n"
@@ -70,7 +73,7 @@ function Debug:object_to_string(level, object)
 end
 
 function Debug:rec_obj_to_string(object, ...)
-  arg = {...}
+  arg = { ... }
   if #arg > 0 then
     return self:object_to_string(0, object) .. self:rec_obj_to_string(unpack(arg))
   else
@@ -79,10 +82,10 @@ function Debug:rec_obj_to_string(object, ...)
 end
 
 function Debug:get_message(tag, logClass, ...)
-  local arg = {...}
+  local arg = { ... }
   local message = self:rec_obj_to_string(unpack(arg))
 
-  message = "[CHLEW]" .. tag .. " <" .. logClass .. "> " .. message 
+  message = "[CHLEW]" .. tag .. " <" .. logClass .. "> " .. message
 
   if not self.append then self.append = true end
   return message
@@ -108,13 +111,13 @@ function Debug:print_to_file(message)
 end
 
 function Debug:print(type, message)
-  log('[DEBUG:1] ' .. type .. ': ' .. Debug:rec_obj_to_string(self.print_tb[type]))
+  -- log('[DEBUG:1] ' .. type .. ': ' .. Debug:rec_obj_to_string(self.print_tb[type]))  -- used to view the current state of the logging table
   if self.print_tb[type][1] then
     self:print_to_chat(message)
   end
   if self.print_tb[type][2] then
     self:print_to_log(message)
-  end 
+  end
   if self.print_tb[type][3] then
     self:print_to_file(message)
   end
