@@ -1,5 +1,5 @@
 Ticks = {
-    classname = "ChlewTicks",
+    classname = "MultiplayerTicks",
 }
 
 -- Format:

@@ -9,7 +9,7 @@ require "core.Ticks"
 -------------- include other libs ---------------
 require "mod-gui"
 
--------------- include Chlew UI libs ---------------
+-------------- include Multiplayer UI libs ---------------
 require "ui.PlayersList"
 require "ui.events"
 

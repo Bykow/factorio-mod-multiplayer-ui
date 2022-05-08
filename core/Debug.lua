@@ -1,9 +1,9 @@
 Debug = {}
 
-Debug.filename = "chlew-ui/chlew-ui.log"
+Debug.filename = "multiplayer-ui/multiplayer-ui.log"
 Debug.limit = 5
 Debug.append = false
-Debug.mode = settings.startup["chlew-ui-debug-log"].value
+Debug.mode = settings.startup["multiplayer-ui-debug-log"].value
 
 if Debug.mode then
   Debug.print_tb = {
@@ -85,7 +85,7 @@ function Debug:get_message(tag, logClass, ...)
   local arg = { ... }
   local message = self:rec_obj_to_string(unpack(arg))
 
-  message = "[CHLEW]" .. tag .. " <" .. logClass .. "> " .. message
+  message = "[MULTIPLAYER]" .. tag .. " <" .. logClass .. "> " .. message
 
   if not self.append then self.append = true end
   return message

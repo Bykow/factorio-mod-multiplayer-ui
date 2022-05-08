@@ -1,7 +1,7 @@
 local playerListCache = {}
 
 PlayersList = {
-  classname = "ChlewPlayersList"
+  classname = "MultiplayerPlayersList"
 }
 
 function PlayersList:new(player)
@@ -40,20 +40,20 @@ end
 
 function PlayersList:playerElement(listBox, player)
   local userSettings = settings.get_player_settings(self.player.index);
-  local showDistance = userSettings["chlew-ui-show-distance"].value
-  local showOnlineTime = userSettings["chlew-ui-show-online-time"].value
-  local showAfkTime = userSettings["chlew-ui-show-afk-time"].value
-  local showGroup = userSettings["chlew-ui-show-group"].value
-  local showArmor = userSettings["chlew-ui-show-armor"].value
+  local showDistance = userSettings["multiplayer-ui-show-distance"].value
+  local showOnlineTime = userSettings["multiplayer-ui-show-online-time"].value
+  local showAfkTime = userSettings["multiplayer-ui-show-afk-time"].value
+  local showGroup = userSettings["multiplayer-ui-show-group"].value
+  local showArmor = userSettings["multiplayer-ui-show-armor"].value
 
   local armor = self:getArmor(player)
   Debug:debug('armor', armor)
   local armorIcon = armor and '[item=' .. armor .. ']' or '[entity=character]'
   local avatar = player.ticks_to_respawn ~= nil and '[color=red]' .. Ticks.smartFormat(player.ticks_to_respawn) .. '[/color]' or armorIcon
 
-  local playerUI = listBox.add { type = "table", column_count = 2, style = "CHLEW_UI_PLAYER_BOX" }
+  local playerUI = listBox.add { type = "table", column_count = 2, style = "MULTIPLAYER_UI_PLAYER_BOX" }
   if showArmor then
-    playerUI.add { type = "label", caption = avatar, style = "CHLEW_UI_PLAYER_ARMOR_LABEL" }
+    playerUI.add { type = "label", caption = avatar, style = "MULTIPLAYER_UI_PLAYER_ARMOR_LABEL" }
   end
 
   local distance = player.connected and math.floor(Position.distance(player.position, self.player.position)) or 0
@@ -88,17 +88,17 @@ function PlayersList:reset()
     self.frame.destroy()
   end
 
-  if self.player.gui.left.chlew_ui then
-    self.player.gui.left.chlew_ui.destroy()
+  if self.player.gui.left.multiplayer_ui then
+    self.player.gui.left.multiplayer_ui.destroy()
   end
-  self.frame = self.player.gui.left.add { type = "frame", name = "chlew_ui", column_count = 1 }
+  self.frame = self.player.gui.left.add { type = "frame", name = "multiplayer_ui", column_count = 1 }
 end
 
 function PlayersList:render()
   self:reset()
 
-  local showOffline = settings.get_player_settings(self.player.index)["chlew-ui-show-offline"].value;
-  local maxPlayers = settings.get_player_settings(self.player.index)["chlew-ui-max-players"].value;
+  local showOffline = settings.get_player_settings(self.player.index)["multiplayer-ui-show-offline"].value;
+  local maxPlayers = settings.get_player_settings(self.player.index)["multiplayer-ui-max-players"].value;
   local listBox = self.frame.add { type = "table", column_count = 1 }
 
   local count = 1

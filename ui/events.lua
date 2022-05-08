@@ -1,5 +1,5 @@
 Events = {
-  classname = "ChlewEvents",
+  classname = "MultiplayerEvents",
   playerList = nil,
 }
 
