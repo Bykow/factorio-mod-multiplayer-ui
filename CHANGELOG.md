@@ -1,5 +1,8 @@
 # Changelog
 
+## 0.2.1
+- change thumbnail
+
 ## 0.2.0
 - startup setting for debug log
 
