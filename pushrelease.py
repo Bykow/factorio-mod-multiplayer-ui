@@ -5,6 +5,7 @@ import os
 import requests
 import shutil
 import zipfile
+from zipfile import ZipFile
 import json
 from os import getenv
 
@@ -18,7 +19,7 @@ moddir = "multiplayer-ui"
 excludelist = [".github", ".gitignore", ".git", "pushrelease.py"]
 
 # Read version from info.json
-f = open(os.path.join(os.getcwd(), moddir, 'info.json'))
+f = open('info.json')
 infojson = json.load(f)
 version = infojson['version']
 
@@ -50,7 +51,7 @@ zf.close()
 # Remove temp folder
 shutil.rmtree(destination_dir)
 
-# Push release to portal
+# # Push release to portal
 # request_body = data = {"mod": modname}
 # request_headers = {"Authorization": f"Bearer {apikey}"}
 
