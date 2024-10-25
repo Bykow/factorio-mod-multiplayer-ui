@@ -5,7 +5,7 @@ import os
 import requests
 import shutil
 import zipfile
-from zipfile import ZipFile
+# from zipfile import ZipFile
 import json
 from os import getenv
 
@@ -44,34 +44,34 @@ for dirname, subdirs, files in os.walk(moddir):
         elif excludeitem in files:
             files.remove(excludeitem)
     zf.write(dirname)
-    for filename in files:
-        zf.write(os.path.join(dirname, filename))
+    for f in files:
+        zf.write(os.path.join(dirname, f))
 zf.close()
 
 # Remove temp folder
 shutil.rmtree(destination_dir)
 
-# # Push release to portal
-# request_body = data = {"mod": modname}
-# request_headers = {"Authorization": f"Bearer {apikey}"}
+# Push release to portal
+request_body = data = {"mod": modname}
+request_headers = {"Authorization": f"Bearer {apikey}"}
 
-# response = requests.post(
-#     INIT_UPLOAD_URL,
-#     data=request_body,
-#     headers=request_headers)
+response = requests.post(
+    INIT_UPLOAD_URL,
+    data=request_body,
+    headers=request_headers)
 
-# if not response.ok:
-#     print(f"init_upload failed: {response.text}")
-#     sys.exit(1)
+if not response.ok:
+    print(f"init_upload failed: {response.text}")
+    sys.exit(1)
 
-# upload_url = response.json()["upload_url"]
+upload_url = response.json()["upload_url"]
 
-# with open(filename, "rb") as f:
-#     request_body = {"file": f}
-#     response = requests.post(upload_url, files=request_body)
+with open(filename, "rb") as f:
+    request_body = {"file": f}
+    response = requests.post(upload_url, files=request_body)
 
-# if not response.ok:
-#     print(f"upload failed: {response.text}")
-#     sys.exit(1)
+if not response.ok:
+    print(f"upload failed: {response.text}")
+    sys.exit(1)
 
-# print(f"upload successful: {response.text}")
+print(f"upload successful: {response.text}")
